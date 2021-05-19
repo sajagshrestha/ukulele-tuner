@@ -1,3 +1,7 @@
+#tuner .section-body {
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+}
 .config-section {
 	display: flex;
 	flex-direction: column;
@@ -6,10 +10,11 @@
 
 #visualizer-canvas {
 	width: 32rem;
-	height: 15rem;
+	height: 17rem;
 }
 
 .tuner-section {
+	min-height: 38rem;
 	display: grid;
 	grid-template-columns: 2fr 8fr;
 	justify-items: end;
@@ -32,4 +37,31 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
+}
+
+@media only screen and (max-width: 1500px) {
+	#tuner .section-body {
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+	}
+	.tuner-section {
+		order: 1;
+		justify-self: center;
+	}
+	.config-section {
+		order: 2;
+	}
+	.tuner-section {
+		grid-template-columns: 1fr;
+		grid-gap: 2rem;
+	}
+	.note-buttons {
+		flex-direction: row;
+		width: 100%;
+		order: 2;
+	}
+	.tuner {
+		gap: 2rem;
+		order: 1;
+	}
 }

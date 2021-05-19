@@ -25,7 +25,7 @@ canvas {
 	color: var(--primary-text);
 	text-shadow: var(--glow-shadow);
 }
-.active {
+.note-button.active {
 	color: var(--primary-text);
 	text-shadow: var(--glow-shadow);
 }

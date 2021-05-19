@@ -1,9 +1,15 @@
 nav {
+	width: 100%;
+	background-color: var(--primary-bg);
+	position: fixed;
+	z-index: 10;
+	height: 5rem;
+}
+.nav-wrapper {
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 10vh;
-	margin-bottom: 3rem;
 }
 nav img {
 	width: 150px;
@@ -17,6 +23,6 @@ nav img {
 }
 .nav-links a {
 	color: var(--primary-text);
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 	margin-left: 6rem;
 }

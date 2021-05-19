@@ -14,8 +14,8 @@
 		<link rel="stylesheet" href="./styles/index.css" />
 	</head>
 	<body>
-		<div class="main-container">
-			<nav>
+		<nav>
+			<div class="main-wrapper nav-wrapper">
 				<div class="logo">
 					<img src="./assets/Logo.svg" alt="" />
 				</div>
@@ -23,15 +23,17 @@
 					<li><a href="#tuner">Tuner</a></li>
 					<li><a href="#tuner">Metronome</a></li>
 				</ul>
-			</nav>
-			<section class="body-section" id="tuner">
+			</div>
+		</nav>
+		<section class="section" id="tuner">
+			<div class="section-body main-wrapper">
 				<section class="config-section">
 					<div class="config">config</div>
 					<canvas id="visualizer-canvas"> </canvas>
 				</section>
 				<section class="tuner-section">
 					<div class="note-buttons">
-						<button class="note-button">G</button>
+						<button class="note-button active">G</button>
 						<button class="note-button">C</button>
 						<button class="note-button">E</button>
 						<button class="note-button">A</button>
@@ -40,16 +42,16 @@
 						<canvas id="tuner-canvas"> </canvas>
 
 						<div class="mic-button-section">
-							<button class="note-button">
+							<button class="mic-button note-button">
 								<i class="fas fa-microphone mic-icon"></i>
 							</button>
 						</div>
 					</div>
 				</section>
-				<section class="visualizer-section"></section>
-			</section>
-		</div>
+			</div>
+		</section>
 		<script src="./js/audioSetup.js"></script>
+		<script src="./js/Visualizer.js"></script>
 		<script src="./js/notes.js"></script>
 		<script src="./js/index.js"></script>
 	</body>

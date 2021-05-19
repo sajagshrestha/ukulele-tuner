@@ -3,7 +3,7 @@
 @import "nav.css";
 @import "shared.css";
 @import "tuner.css";
-@import "config.css";
+
 :root {
 	--primary-bg: #2c3331;
 	--screen: #222625;
@@ -23,21 +23,21 @@ body {
 	font-family: "Poppins", sans-serif;
 }
 
-.main-container {
-	max-width: 1300px;
+.main-wrapper {
+	width: min(90vw, 1300px);
 	margin: 0 auto;
 }
 
-.body-section {
-	min-height: 40rem;
-	display: grid;
-	grid-template-columns: 2fr 3fr;
+.section {
+	min-height: min(100vh, 60rem);
+	padding-top: 2rem;
+	display: flex;
+	align-items: center;
 }
 
-@media only screen and (max-width: 1000px) {
-	.body-section {
-		grid-template-columns: 0;
-
-		grid-template-rows: 1fr 1fr;
+@media only screen and (max-width: 1500px) {
+	.section {
+		padding-top: 7rem;
+		align-items: start;
 	}
 }
