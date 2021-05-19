@@ -1,0 +1,52 @@
+canvas {
+	background-color: var(--screen);
+	border-radius: 10px;
+	box-shadow: var(--neumorphic-shadow);
+}
+/* neumorphic buttons */
+.note-button {
+	font-size: 2.5rem;
+	width: 2em;
+	height: 2em;
+	color: var(--secondary-text);
+	background-color: var(--secondary-bg);
+	box-shadow: var(--neumorphic-shadow);
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	border-radius: 50%;
+	outline: none;
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.note-button:hover {
+	color: var(--primary-text);
+	text-shadow: var(--glow-shadow);
+}
+.active {
+	color: var(--primary-text);
+	text-shadow: var(--glow-shadow);
+}
+.note-button::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	opacity: 0;
+	box-shadow: var(--neumorphic-shadow-inset);
+	transition: all 0.4s ease-out;
+}
+.note-button:active {
+	color: #fff;
+	text-shadow: var(--glow-shadow);
+	box-shadow: none;
+	transform: translateY(4px);
+}
+.note-button:active::after {
+	opacity: 1;
+}

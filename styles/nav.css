@@ -1,0 +1,22 @@
+nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 10vh;
+	margin-bottom: 3rem;
+}
+nav img {
+	width: 150px;
+	height: 100px;
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.nav-links a {
+	color: var(--primary-text);
+	font-size: 1.3rem;
+	margin-left: 6rem;
+}

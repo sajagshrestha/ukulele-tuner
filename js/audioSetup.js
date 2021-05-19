@@ -1,8 +1,8 @@
 const audioContext = new AudioContext();
 const analyserNode = new AnalyserNode(audioContext, { fftSize: 2048 }); //web audio api's anaylzer node that connects to mic input
+const visualizerNode = new AnalyserNode(audioContext, { fftSize: 64 });
 
 let micStream = null; // used to stop getting microhpone input
-let isUsingMic = false; //microphone state
 
 //get mic from user using navigator api
 const getMic = () => {
@@ -18,10 +18,12 @@ const getMic = () => {
 		.then((stream) => {
 			micStream = stream;
 			source = audioContext.createMediaStreamSource(stream);
-			//connect analyzer node to input node
+			//connect analyzer nodes to input node
 			source.connect(analyserNode);
+			source.connect(visualizerNode);
 			isUsingMic = true;
 			//start tuner only after getting user's microphone
+			start();
 		})
 		.catch((error) => {
 			//handle error here
@@ -36,6 +38,7 @@ const toggleMic = () => {
 			track.stop();
 		});
 		//stop the tuner
+		cancelAnimationFrame(start);
 	} else {
 		getMic();
 	}
