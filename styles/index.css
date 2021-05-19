@@ -1,0 +1,26 @@
+@import "reset.css";
+
+:root {
+	--primary-bg: #2c3331;
+	--screen: #222625;
+	--primary-text: #fff;
+	--secondary-text: #868686;
+	--glow-shadow: 0px 0px 25px #5cc1a9;
+	--neumorphic-shadow: 7px 7px 18.5px rgba(0, 0, 0, 0.6),
+		-7px -7px 18.5px #3d4443;
+	--neumorphic-shadow-inset: inset 7px 7px 18.5px rgba(0, 0, 0, 0.6),
+		inset -7px -7px 18.5px #3d4443;
+}
+
+body {
+	background-color: var(--primary-bg);
+	color: var(--primary-text);
+}
+
+.mic {
+	color: red;
+}
+
+.mic.active {
+	color: green;
+}
