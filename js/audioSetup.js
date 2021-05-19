@@ -16,9 +16,6 @@ const getMic = () => {
 			},
 		})
 		.then((stream) => {
-			if (audioContext.state === "suspended") {
-				audioContext.resume();
-			}
 			micStream = stream;
 			source = audioContext.createMediaStreamSource(stream);
 			//connect analyzer node to input node
