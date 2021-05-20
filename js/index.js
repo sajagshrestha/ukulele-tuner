@@ -1,6 +1,12 @@
 //canvas
+const tunerCanvas = document.getElementById("tuner-canvas");
 const visualizerCanvas = document.getElementById("visualizer-canvas");
 // const vContext = visualizerCanvas.getContext("2d");
+tunerCanvas.width = 570;
+tunerCanvas.height = 480;
+
+visualizerCanvas.width = 500;
+visualizerCanvas.height = 250;
 
 //audio context
 const audioContext = new AudioContext();
@@ -21,28 +27,57 @@ const micButton = document.querySelector(".mic-button");
 //mic state
 let isUsingMic = false;
 
+//current tuner mode
+let currentTunerMode = "manual";
+
 //colors
 const CYAN = "#5CC1A9";
+const GREY = "white";
+const RED = "red";
 
-const visualizer = new Visualizer(
-	visualizerCanvas,
-	visualizerBufferLength,
-	CYAN
-);
-
-//main loop
+const barTuner = new BarTuner(tunerCanvas);
+const visualizer = new Visualizer(visualizerCanvas, visualizerBufferLength);
 
 const start = () => {
 	if (isUsingMic) {
+		if (currentTunerMode === "manual") {
+			barTuner.clear();
+			barTuner.drawSkeleton();
+		}
+
 		//get frequency data
 		visualizerNode.getByteFrequencyData(visualizerDataArray);
 
 		//draw visualizer
-
 		visualizer.drawVisualizer(visualizerDataArray);
 		requestAnimationFrame(start);
 	}
 };
 
+const initializeTuner = () => {
+	if (currentTunerMode === "manual") {
+		barTuner.clear();
+		barTuner.drawSkeleton();
+	} else {
+		barTuner.clear();
+	}
+};
+
 //add eventListeners
 micButton.addEventListener("click", toggleMic);
+
+const modes = document.querySelectorAll(".tuner-mode");
+
+for (let i = 0; i < modes.length; i++) {
+	modes[i].addEventListener("click", () => {
+		if (modes[i].htmlFor === "manual") {
+			currentTunerMode = "manual";
+		} else {
+			currentTunerMode = "auto";
+		}
+		console.log(currentTunerMode);
+		initializeTuner();
+	});
+}
+
+initializeTuner();

@@ -50,3 +50,8 @@ canvas {
 .note-button:active::after {
 	opacity: 1;
 }
+
+.note-button.no-permission {
+	color: hsl(0, 45%, 56%);
+	text-shadow: 0px 0px 25px hsl(0, 45%, 56%);
+}

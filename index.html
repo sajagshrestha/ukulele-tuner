@@ -28,7 +28,20 @@
 		<section class="section" id="tuner">
 			<div class="section-body main-wrapper">
 				<section class="config-section">
-					<div class="config">config</div>
+					<div class="config">
+						<div class="mode-config">
+							<label for="manual" class="radio-label tuner-mode">
+								<input type="radio" name="mode" id="manual" />
+								<div class="custom_radio_input"></div>
+								Manual
+							</label>
+							<label for="auto" class="radio-label tuner-mode">
+								<input type="radio" name="mode" id="auto" />
+								<div class="custom_radio_input"></div>
+								Auto
+							</label>
+						</div>
+					</div>
 					<canvas id="visualizer-canvas"> </canvas>
 				</section>
 				<section class="tuner-section">
@@ -51,6 +64,8 @@
 			</div>
 		</section>
 		<script src="./js/audioSetup.js"></script>
+		<script src="./js/helpers.js"></script>
+		<script src="./js/BarTuner.js"></script>
 		<script src="./js/Visualizer.js"></script>
 		<script src="./js/notes.js"></script>
 		<script src="./js/index.js"></script>

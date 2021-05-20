@@ -9,8 +9,8 @@
 }
 
 #visualizer-canvas {
-	width: 32rem;
-	height: 17rem;
+	/* width: 32rem;
+	height: 17rem; */
 }
 
 .tuner-section {
@@ -21,8 +21,8 @@
 }
 
 #tuner-canvas {
-	width: 36rem;
-	height: 30rem;
+	/* width: 36rem;
+	height: 30rem; */
 }
 
 .note-buttons {
@@ -50,6 +50,9 @@
 	}
 	.config-section {
 		order: 2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	.tuner-section {
 		grid-template-columns: 1fr;
