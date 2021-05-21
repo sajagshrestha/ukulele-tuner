@@ -8,6 +8,12 @@ tunerCanvas.height = 480;
 visualizerCanvas.width = 500;
 visualizerCanvas.height = 250;
 
+//font to use in canvas
+const fontPoppins = new FontFace(
+	"Poppins",
+	"url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrFJA.ttf)"
+);
+
 //audio context
 const audioContext = new AudioContext();
 const tunerNode = new AnalyserNode(audioContext, { fftSize: 2048 }); //web audio api's anaylzer node that connects to mic input
@@ -80,4 +86,8 @@ for (let i = 0; i < modes.length; i++) {
 	});
 }
 
-initializeTuner();
+//draw on canvas only after font is loaded
+fontPoppins
+	.load()
+	.then(() => initializeTuner())
+	.catch((err) => console.log(err));
