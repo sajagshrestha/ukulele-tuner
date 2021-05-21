@@ -38,7 +38,7 @@ let currentTunerMode = "manual";
 
 //colors
 const CYAN = "#5CC1A9";
-const GREY = "white";
+const GREY = "#868686";
 const RED = "red";
 
 const barTuner = new BarTuner(tunerCanvas);
@@ -47,8 +47,7 @@ const visualizer = new Visualizer(visualizerCanvas, visualizerBufferLength);
 const start = () => {
 	if (isUsingMic) {
 		if (currentTunerMode === "manual") {
-			barTuner.clear();
-			barTuner.drawSkeleton();
+			barTuner.drawSkeleton("white");
 		}
 
 		//get frequency data
@@ -62,8 +61,7 @@ const start = () => {
 
 const initializeTuner = () => {
 	if (currentTunerMode === "manual") {
-		barTuner.clear();
-		barTuner.drawSkeleton();
+		barTuner.drawSkeleton(GREY);
 	} else {
 		barTuner.clear();
 	}
@@ -81,7 +79,6 @@ for (let i = 0; i < modes.length; i++) {
 		} else {
 			currentTunerMode = "auto";
 		}
-		console.log(currentTunerMode);
 		initializeTuner();
 	});
 }

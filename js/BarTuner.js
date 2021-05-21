@@ -11,11 +11,12 @@ class BarTuner {
 
 		this.ctx.translate(-this.x, -this.y); //translate context back
 	}
-	drawSkeleton() {
+	drawSkeleton(color) {
+		this.clear();
 		this.ctx.translate(this.x, this.y); // transalte context to center
 		//draw line
 		this.ctx.font = " 50px Poppins";
-		this.ctx.fillStyle = "white";
+		this.ctx.fillStyle = color;
 		this.ctx.fillText("b", -250, 35);
 		this.ctx.fillText("#", 210, 35);
 		this.ctx.font = " 64px Poppins";
@@ -28,18 +29,17 @@ class BarTuner {
 		this.ctx.moveTo(0, 0);
 		this.ctx.lineWidth = 3;
 		this.ctx.lineTo(0, this.height);
-		this.ctx.strokeStyle = "white";
+		this.ctx.strokeStyle = color;
 		this.ctx.stroke();
 		this.ctx.closePath();
-
+		console.log(color);
 		//draw dot
-		this.ctx.fillStyle = "white";
 		this.ctx.arc(0, this.height, 5, 0, Math.PI * 2);
 		this.ctx.fill();
 		this.ctx.translate(-this.x, -this.y); //t
 	}
 	update() {}
 	clear() {
-		this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 }
