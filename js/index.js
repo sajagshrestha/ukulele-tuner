@@ -8,6 +8,12 @@ tunerCanvas.height = 480;
 visualizerCanvas.width = 500;
 visualizerCanvas.height = 250;
 
+//font to use in canvas
+const fontPoppins = new FontFace(
+	"Poppins",
+	"url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrFJA.ttf)"
+);
+
 //audio context
 const audioContext = new AudioContext();
 const tunerNode = new AnalyserNode(audioContext, { fftSize: 2048 }); //web audio api's anaylzer node that connects to mic input
@@ -32,7 +38,7 @@ let currentTunerMode = "manual";
 
 //colors
 const CYAN = "#5CC1A9";
-const GREY = "white";
+const GREY = "#868686";
 const RED = "red";
 
 const barTuner = new BarTuner(tunerCanvas);
@@ -41,8 +47,7 @@ const visualizer = new Visualizer(visualizerCanvas, visualizerBufferLength);
 const start = () => {
 	if (isUsingMic) {
 		if (currentTunerMode === "manual") {
-			barTuner.clear();
-			barTuner.drawSkeleton();
+			barTuner.drawSkeleton("white");
 		}
 
 		//get frequency data
@@ -56,8 +61,7 @@ const start = () => {
 
 const initializeTuner = () => {
 	if (currentTunerMode === "manual") {
-		barTuner.clear();
-		barTuner.drawSkeleton();
+		barTuner.drawSkeleton(GREY);
 	} else {
 		barTuner.clear();
 	}
@@ -75,9 +79,12 @@ for (let i = 0; i < modes.length; i++) {
 		} else {
 			currentTunerMode = "auto";
 		}
-		console.log(currentTunerMode);
 		initializeTuner();
 	});
 }
 
-initializeTuner();
+//draw on canvas only after font is loaded
+fontPoppins
+	.load()
+	.then(() => initializeTuner())
+	.catch((err) => console.log(err));
