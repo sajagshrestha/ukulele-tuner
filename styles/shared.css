@@ -4,7 +4,7 @@ canvas {
 	box-shadow: var(--neumorphic-shadow);
 }
 /* neumorphic buttons */
-.note-button {
+.button {
 	font-size: 2.5rem;
 	width: 2em;
 	height: 2em;
@@ -21,15 +21,15 @@ canvas {
 	transition: all 0.3s ease;
 }
 
-.note-button:hover {
+.button:hover {
 	color: var(--primary-text);
 	text-shadow: var(--glow-shadow);
 }
-.note-button.active {
+.button.active {
 	color: var(--primary-text);
 	text-shadow: var(--glow-shadow);
 }
-.note-button::after {
+.button::after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -41,17 +41,17 @@ canvas {
 	box-shadow: var(--neumorphic-shadow-inset);
 	transition: all 0.4s ease-out;
 }
-.note-button:active {
+.button:active {
 	color: #fff;
 	text-shadow: var(--glow-shadow);
 	box-shadow: none;
 	transform: translateY(4px);
 }
-.note-button:active::after {
+.button:active::after {
 	opacity: 1;
 }
 
-.note-button.no-permission {
+.button.no-permission {
 	color: hsl(0, 45%, 56%);
 	text-shadow: 0px 0px 25px hsl(0, 45%, 56%);
 }

@@ -22,6 +22,7 @@ const tunings = [
 		],
 	},
 ];
+
 let currentTuning = 0;
 let currentNoteIndex = 0;
 

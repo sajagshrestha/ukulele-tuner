@@ -16,6 +16,11 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+			rel="stylesheet"
+		/>
+
 		<link rel="stylesheet" href="./styles/index.css" />
 	</head>
 	<body>
@@ -51,16 +56,16 @@
 				</section>
 				<section class="tuner-section">
 					<div class="note-buttons">
-						<button class="note-button active">G</button>
-						<button class="note-button">C</button>
-						<button class="note-button">E</button>
-						<button class="note-button">A</button>
+						<button class="button note-button">G</button>
+						<button class="button note-button">C</button>
+						<button class="button note-button">E</button>
+						<button class="button note-button">A</button>
 					</div>
 					<div class="tuner">
 						<canvas id="tuner-canvas"></canvas>
 
 						<div class="mic-button-section">
-							<button class="mic-button note-button">
+							<button class="button mic-button">
 								<i class="fas fa-microphone mic-icon"></i>
 							</button>
 						</div>
@@ -69,6 +74,7 @@
 			</div>
 		</section>
 		<script src="./js/audioSetup.js"></script>
+		<script src="./js/pitchDetector.js"></script>
 		<script src="./js/helpers.js"></script>
 		<script src="./js/BarTuner.js"></script>
 		<script src="./js/Visualizer.js"></script>
