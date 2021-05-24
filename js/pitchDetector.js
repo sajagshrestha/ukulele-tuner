@@ -1,18 +1,17 @@
 const detectPitch = (buffer) => {
-	// refrenced from https://github.com/cwilso/PitchDetect/blob/master/js/pitchdetect.js
 	const sampleRate = 44100;
 	let SIZE = buffer.length;
-	let rms = 0;
+	let rms = 0; //root mean square
 
 	for (let i = 0; i < SIZE; i++) {
 		let val = buffer[i];
 		rms += val * val;
 	}
 	rms = Math.sqrt(rms / SIZE);
-	if (rms < 0.01)
-		// not enough signal
-		return -1;
 
+	//rms less that 0.01 means signal is not enough
+	if (rms < 0.01) return -1;
+	//clip signal
 	let r1 = 0,
 		r2 = SIZE - 1,
 		thres = 0.2;
@@ -34,7 +33,6 @@ const detectPitch = (buffer) => {
 	for (let i = 0; i < SIZE; i++)
 		for (let j = 0; j < SIZE - i; j++)
 			c[i] = c[i] + buffer[j] * buffer[j + i];
-
 	let d = 0;
 	while (c[d] > c[d + 1]) d++;
 	let maxval = -1,

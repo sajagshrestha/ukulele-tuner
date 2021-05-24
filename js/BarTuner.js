@@ -10,19 +10,26 @@ class BarTuner {
 	}
 	drawTuner() {
 		this.ctx.translate(this.x, this.y);
-
+		//draw line
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.tunerX, 0);
 		this.ctx.lineWidth = 3;
-		this.ctx.lineTo(this.tunerX, this.height);
+		this.ctx.lineTo(this.tunerX + this.ctx.lineWidth / 2, this.height);
 		this.ctx.shadowBlur = 20;
 		this.ctx.shadowColor = this.tunerColor;
 		this.ctx.strokeStyle = this.tunerColor;
 		this.ctx.stroke();
-		this.ctx.closePath();
 
+		//draw arc()
+		this.ctx.beginPath();
 		this.ctx.fillStyle = this.tunerColor;
-		this.ctx.arc(this.tunerX, this.height, 5, 0, Math.PI * 2);
+		this.ctx.arc(
+			this.tunerX + this.ctx.lineWidth / 2,
+			this.height,
+			5,
+			0,
+			Math.PI * 2
+		);
 		this.ctx.fill();
 		//remove shadows for other elements
 		this.ctx.shadowBlur = 0;
@@ -31,34 +38,38 @@ class BarTuner {
 	}
 	drawSkeleton(color) {
 		this.ctx.translate(this.x, this.y); // translate context to center
+
 		//draw line
-		this.ctx.font = " 24px Roboto";
+		this.ctx.beginPath();
+		this.ctx.moveTo(0, 0);
+		this.ctx.lineWidth = 3;
+		this.ctx.lineTo(this.ctx.lineWidth / 2, this.height);
+		this.ctx.strokeStyle = color;
+		this.ctx.stroke();
+
+		//draw dot
+		this.ctx.beginPath();
+		this.ctx.fillStyle = color;
+		this.ctx.arc(this.ctx.lineWidth / 2, this.height, 5, 0, Math.PI * 2);
+		this.ctx.fill();
+
+		//draw text
+		this.ctx.font = "bold 24px Roboto";
 		this.ctx.fillStyle = color;
 		this.ctx.fillText("\u266d", -250, 20);
 		this.ctx.fillText("\u266f", 220, 20);
-		this.ctx.font = `64px Roboto`;
+		this.ctx.font = `bold 64px Roboto`;
 		this.ctx.fillText(
 			notes[currentNoteIndex].note,
 			-20,
 			this.canvas.height - 60
 		);
-		this.ctx.beginPath();
-		this.ctx.moveTo(0, 0);
-		this.ctx.lineWidth = 5;
-		this.ctx.lineTo(0, this.height);
-		this.ctx.strokeStyle = GREY;
-		this.ctx.stroke();
-		this.ctx.closePath();
-		//draw dot
-		this.ctx.fillStyle = GREY;
 
-		this.ctx.arc(0, this.height, 5, 0, Math.PI * 2);
-		this.ctx.fill();
 		this.ctx.translate(-this.x, -this.y); //t
 	}
 	update(diff) {
 		this.clear();
-		this.ctx.fillText(diff.toFixed(2), 20, 120);
+		// this.ctx.fillText(diff.toFixed(2), 20, 120);
 
 		if (diff > -1.5 && diff < 1.5) {
 			//in tune

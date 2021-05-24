@@ -34,9 +34,6 @@ const noteButtons = document.querySelectorAll(".note-button");
 //mic state
 let isUsingMic = false;
 
-//current tuner mode
-let currentTunerMode = "manual";
-
 //colors
 const CYAN = "#5CC1A9";
 const GREY = "#868686";
@@ -47,7 +44,14 @@ const RED = "#C15C5C";
 const LOW_FREQ_THRES = 200;
 const HIGH_FREQ_THRES = 500;
 
+//current tuner mode
+let currentTunerMode = "manual";
+
+//tuner type
+let currentTunerType = "meter";
+
 const barTuner = new BarTuner(tunerCanvas);
+const meterTuner = new MeterTuner(tunerCanvas);
 const visualizer = new Visualizer(visualizerCanvas, visualizerBufferLength);
 
 const start = () => {
@@ -64,8 +68,26 @@ const start = () => {
 		if (currentTunerMode === "manual") {
 			diff = freq - notes[currentNoteIndex].freq;
 		} else {
+			//auto tuner
+			//calculate closest note
+			let tempDiff = HIGH_FREQ_THRES;
+			notes.forEach((note, index) => {
+				diff = freq - note.freq;
+				if (Math.abs(diff) < Math.abs(tempDiff)) {
+					tempDiff = diff;
+					currentNoteIndex = index;
+				}
+			});
+
+			diff = tempDiff;
 		}
-		barTuner.update(diff);
+
+		//draw tuner
+		if (currentTunerType === "bar") {
+			barTuner.update(diff);
+		} else {
+			meterTuner.update();
+		}
 
 		//get frequency data for visualizer
 		visualizerNode.getByteFrequencyData(visualizerDataArray);
@@ -76,15 +98,17 @@ const start = () => {
 };
 
 const initializeTuner = () => {
-	if (currentTunerMode === "manual") {
+	if (currentTunerType === "bar") {
 		barTuner.clear();
 		barTuner.drawSkeleton(GREY);
 	} else {
-		barTuner.clear();
+		meterTuner.clear();
+		meterTuner.drawSkeleton(GREY);
 	}
 };
 
 //add eventListeners to radio buttons
+
 //mode
 micButton.addEventListener("click", toggleMic);
 const modes = document.querySelectorAll(".tuner-mode");
@@ -92,8 +116,15 @@ for (let i = 0; i < modes.length; i++) {
 	modes[i].addEventListener("click", () => {
 		if (modes[i].htmlFor === "manual") {
 			currentTunerMode = "manual";
+			//when switching back to manual mode set current note to first note
+			currentNoteIndex = 0;
+			noteButtons[currentNoteIndex].classList.add("active");
 		} else {
 			currentTunerMode = "auto";
+			//remove active styles from notebutton with auto mode
+			for (let i = 0; i < noteButtons.length; i++) {
+				noteButtons[i].classList.remove("active");
+			}
 		}
 		initializeTuner();
 	});
@@ -104,7 +135,6 @@ if ((currentTunerMode = "manual")) {
 	for (let i = 0; i < noteButtons.length; i++) {
 		noteButtons[i].addEventListener("click", () => {
 			currentNoteIndex = i;
-			console.log(currentNoteIndex);
 			for (let j = 0; j < noteButtons.length; j++) {
 				if (j === currentNoteIndex) {
 					noteButtons[j].classList.add("active");
@@ -112,6 +142,9 @@ if ((currentTunerMode = "manual")) {
 					noteButtons[j].classList.remove("active");
 				}
 			}
+			//clicking note buttons will chnage mode to manual
+			currentTunerMode = "manual";
+			document.getElementById("manual").checked = true;
 		});
 	}
 }
