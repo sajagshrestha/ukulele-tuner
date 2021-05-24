@@ -103,7 +103,8 @@ const initializeTuner = () => {
 		barTuner.drawSkeleton(GREY);
 	} else {
 		meterTuner.clear();
-		meterTuner.drawSkeleton(GREY);
+		meterTuner.drawTuner(GREY);
+		meterTuner.drawNotes(GREY);
 	}
 };
 
