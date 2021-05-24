@@ -48,7 +48,7 @@ const HIGH_FREQ_THRES = 500;
 let currentTunerMode = "manual";
 
 //tuner type
-let currentTunerType = "meter";
+let currentTunerType = "bar";
 
 const barTuner = new BarTuner(tunerCanvas);
 const meterTuner = new MeterTuner(tunerCanvas);
@@ -111,7 +111,6 @@ const initializeTuner = () => {
 //add eventListeners to radio buttons
 
 //mode
-micButton.addEventListener("click", toggleMic);
 const modes = document.querySelectorAll(".tuner-mode");
 for (let i = 0; i < modes.length; i++) {
 	modes[i].addEventListener("click", () => {
@@ -127,6 +126,20 @@ for (let i = 0; i < modes.length; i++) {
 				noteButtons[i].classList.remove("active");
 			}
 		}
+		//rerender after mode change
+		initializeTuner();
+	});
+}
+//tuner type
+const tunerTypes = document.querySelectorAll(".tuner-type");
+for (let i = 0; i < tunerTypes.length; i++) {
+	tunerTypes[i].addEventListener("click", () => {
+		if (tunerTypes[i].htmlFor === "bar") {
+			currentTunerType = "bar";
+		} else {
+			currentTunerType = "meter";
+		}
+		//rerener after tuner type change
 		initializeTuner();
 	});
 }
@@ -155,3 +168,6 @@ fontRoboto
 	.load()
 	.then(() => initializeTuner())
 	.catch((err) => console.log(err));
+
+//add event Listener to mic
+micButton.addEventListener("click", toggleMic);
