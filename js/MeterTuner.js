@@ -22,13 +22,14 @@ class MeterTuner {
 		this.ctx.strokeStyle = color;
 		this.ctx.stroke();
 		//draw line
+		this.ctx.rotate(this.tunerAngle);
 		this.ctx.beginPath();
 		this.ctx.moveTo(0, 0);
 		this.ctx.strokeStyle = color;
 
 		this.ctx.lineTo(0, -this.radius + 5);
 		this.ctx.stroke();
-
+		this.ctx.rotate(-this.tunerAngle);
 		//draw dot
 		this.ctx.beginPath();
 		this.ctx.fillStyle = color;
@@ -37,8 +38,6 @@ class MeterTuner {
 
 		this.ctx.shadowBlur = 0;
 		this.ctx.shadowColor = 0;
-		//draw note
-
 		this.ctx.translate(-this.x, -this.y);
 	}
 	drawNotes(color) {
@@ -51,10 +50,26 @@ class MeterTuner {
 		this.ctx.fillText(notes[currentNoteIndex].note, -20, 80);
 		this.ctx.translate(-this.x, -this.y);
 	}
-	update() {
+	drawFreqDiff() {}
+	update(diff) {
 		this.clear();
+		if (diff > -2 && diff < 2) {
+			//in tune
+			this.tunerColor = CYAN;
+		} else if (diff > 0) {
+			//tune down
+			this.tunerAngle += 0.08;
+			this.tunerColor = RED;
+		} else {
+			//tune up
+			this.tunerAngle -= 0.03;
+			this.tunerColor = RED;
+		}
+		let newAngle = mapToRange(diff, -60, 60, -Math.PI / 2, Math.PI / 2);
+		if (Math.abs(this.tunerAngle) >= Math.abs(newAngle)) {
+			this.tunerAngle = newAngle;
+		}
 		this.shadowBlur = 20;
-		this.tunerColor = CYAN;
 		this.drawTuner(this.tunerColor);
 		this.shadowBlur = 0;
 		this.drawNotes(WHITE);

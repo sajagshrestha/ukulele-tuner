@@ -48,7 +48,7 @@ const HIGH_FREQ_THRES = 500;
 let currentTunerMode = "manual";
 
 //tuner type
-let currentTunerType = "bar";
+let currentTunerType = "meter";
 
 const barTuner = new BarTuner(tunerCanvas);
 const meterTuner = new MeterTuner(tunerCanvas);
@@ -86,7 +86,7 @@ const start = () => {
 		if (currentTunerType === "bar") {
 			barTuner.update(diff);
 		} else {
-			meterTuner.update();
+			meterTuner.update(diff);
 		}
 
 		//get frequency data for visualizer

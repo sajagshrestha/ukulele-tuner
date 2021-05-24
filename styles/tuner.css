@@ -2,12 +2,27 @@
 	display: grid;
 	grid-template-columns: 2fr 3fr;
 }
+
 .config-section {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
+.config {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-row-gap: 2rem;
+	justify-items: start;
+}
+.radio-config:nth-of-type(even) {
+	justify-self: end;
+}
+.radio-title {
+	color: var(--primary-text);
+	font-size: 2.2rem;
+	margin-bottom: 0.3rem;
+}
 #visualizer-canvas {
 	/* width: 32rem;
 	height: 17rem; */

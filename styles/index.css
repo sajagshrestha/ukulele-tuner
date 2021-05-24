@@ -13,7 +13,7 @@
 		-7px -7px 18.5px #3d4443;
 	--neumorphic-shadow-inset: inset 7px 7px 18.5px rgba(0, 0, 0, 0.5),
 		inset -7px -7px 18.5px #3d4443;
-
+	--cyan: #5cc1a9;
 	font-size: 16px;
 }
 

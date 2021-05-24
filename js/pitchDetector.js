@@ -11,6 +11,7 @@ const detectPitch = (buffer) => {
 
 	//rms less that 0.01 means signal is not enough
 	if (rms < 0.01) return -1;
+
 	//clip signal
 	let r1 = 0,
 		r2 = SIZE - 1,

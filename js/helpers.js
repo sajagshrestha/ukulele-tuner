@@ -1,7 +1,9 @@
-const mapToRange = (result, in_min, in_max, out_min, out_max) => {
-	return (
-		((result - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
-	);
+const mapToRange = (value, inMin, inMAx, outMin, outMax) => {
+	const newValue =
+		((value - inMin) * (outMax - outMin)) / (inMAx - inMin) + outMin;
+	if (newValue < outMin) return outMin;
+	else if (newValue > outMax) return outMax;
+	else return newValue;
 };
 
 const getHSL = (h, s, l) => {
