@@ -34,6 +34,7 @@ const detectPitch = (buffer) => {
 	for (let i = 0; i < SIZE; i++)
 		for (let j = 0; j < SIZE - i; j++)
 			c[i] = c[i] + buffer[j] * buffer[j + i];
+
 	let d = 0;
 	while (c[d] > c[d + 1]) d++;
 	let maxval = -1,

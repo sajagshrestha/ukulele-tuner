@@ -56,12 +56,14 @@ class BarTuner {
 		//draw text
 		this.ctx.font = "bold 24px Roboto";
 		this.ctx.fillStyle = color;
+
+		this.ctx.textAlign = "center";
 		this.ctx.fillText("\u266d", -250, 20);
-		this.ctx.fillText("\u266f", 220, 20);
+		this.ctx.fillText("\u266f", 250, 20);
 		this.ctx.font = `bold 64px Roboto`;
 		this.ctx.fillText(
 			notes[currentNoteIndex].note,
-			-20,
+			0,
 			this.canvas.height - 60
 		);
 
