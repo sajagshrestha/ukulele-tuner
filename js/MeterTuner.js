@@ -37,6 +37,10 @@ class MeterTuner {
 		this.ctx.arc(0, 0, 5, 0, Math.PI * 2);
 		this.ctx.fill();
 
+		//reset
+		this.ctx.shadowBlur = 0;
+		this.ctx.shadowColor = 0;
+
 		//draw meter labels
 		for (let i = 0; i < 5; i++) {
 			let angle = -Math.PI / 2 + (i * Math.PI) / 4;
@@ -52,10 +56,6 @@ class MeterTuner {
 
 			this.ctx.stroke();
 		}
-
-		//reset
-		this.ctx.shadowBlur = 0;
-		this.ctx.shadowColor = 0;
 		this.ctx.translate(-this.x, -this.y);
 	}
 	drawNotes(color) {

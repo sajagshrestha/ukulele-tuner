@@ -101,3 +101,8 @@ canvas {
 	border: 2px solid var(--cyan);
 	box-shadow: var(--glow-shadow);
 }
+@media only screen and (max-width: 1380px) {
+	.button {
+		font-size: 2.2rem;
+	}
+}

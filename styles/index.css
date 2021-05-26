@@ -28,15 +28,12 @@ body {
 }
 
 .section {
-	min-height: min(100vh, 50rem);
-	padding-top: 2rem;
 	display: flex;
 	align-items: center;
 }
 
 @media only screen and (max-width: 1500px) {
 	.section {
-		padding-top: 7rem;
-		align-items: start;
+		margin-bottom: 2rem;
 	}
 }
