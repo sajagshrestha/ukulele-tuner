@@ -9,6 +9,7 @@ class MeterTuner {
 		this.shadowBlur = 0;
 		this.tunerAngle = 0;
 		this.meterRange = 60;
+		this.velocity = 0.02;
 	}
 	drawTuner(color) {
 		this.ctx.translate(this.x, this.y);
@@ -65,8 +66,8 @@ class MeterTuner {
 		this.ctx.fillStyle = color;
 		this.ctx.fillText("\u266d", -250, -255);
 		this.ctx.fillText("\u266f", 250, -255);
-		this.ctx.font = `bold 64px Roboto`;
-		this.ctx.fillText(notes[currentNoteIndex].note, 0, 80);
+		this.ctx.font = `bold 90px Roboto`;
+		this.ctx.fillText(notes[currentNoteIndex].note, 0, 120);
 		this.ctx.translate(-this.x, -this.y);
 	}
 	drawFreqDiff() {}
@@ -77,11 +78,11 @@ class MeterTuner {
 			this.tunerColor = CYAN;
 		} else if (diff > 0) {
 			//tune down
-			this.tunerAngle += 0.08;
+			this.tunerAngle += this.velocity;
 			this.tunerColor = RED;
 		} else {
 			//tune up
-			this.tunerAngle -= 0.08;
+			this.tunerAngle -= this.velocity;
 			this.tunerColor = RED;
 		}
 		let newAngle = mapToRange(

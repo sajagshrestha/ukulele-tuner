@@ -5,9 +5,9 @@ const getMic = () => {
 	navigator.mediaDevices
 		.getUserMedia({
 			audio: {
-				echoCancellation: false,
+				echoCancellation: true,
 				autoGainControl: false,
-				noiseSuppression: false, //noise suppression may reduce the accuracy of tuner
+				noiseSuppression: true, //noise suppression may reduce the accuracy of tuner
 				latency: 0,
 			},
 		})
