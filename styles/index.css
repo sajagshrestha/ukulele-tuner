@@ -28,7 +28,7 @@ body {
 }
 
 .section {
-	min-height: min(100vh, 60rem);
+	min-height: min(100vh, 50rem);
 	padding-top: 2rem;
 	display: flex;
 	align-items: center;

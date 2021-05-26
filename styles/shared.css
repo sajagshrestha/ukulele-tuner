@@ -76,7 +76,7 @@ canvas {
 	width: 0.8em;
 	height: 0.8em;
 	border-radius: 50%;
-	border: 2px solid white;
+	border: 2px solid var(--secondary-text);
 	box-shadow: var(--neumorphic-shadow);
 	margin-right: 1rem;
 	position: relative;
