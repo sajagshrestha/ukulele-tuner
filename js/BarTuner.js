@@ -6,6 +6,8 @@ class BarTuner {
 		this.y = 30;
 		this.height = this.canvas.height - 140;
 		this.tunerX = 0;
+		this.barRange = 60;
+		this.threshold = 2;
 		this.tunerColor = CYAN;
 	}
 	drawTuner() {
@@ -73,23 +75,23 @@ class BarTuner {
 		this.clear();
 		// this.ctx.fillText(diff.toFixed(2), 20, 120);
 
-		if (diff > -1.5 && diff < 1.5) {
+		if (diff > -this.threshold && diff < this.threshold) {
 			//in tune
 			this.tunerColor = CYAN;
 		} else if (diff > 0) {
 			//tune down
-			this.tunerX += 5;
+			this.tunerX += 3;
 			this.tunerColor = RED;
 		} else {
 			//tune up
-			this.tunerX -= 5;
+			this.tunerX -= 3;
 			this.tunerColor = RED;
 		}
 		//map to fit canvas
 		let mappedFreq = mapToRange(
 			diff,
-			-100,
-			100,
+			-this.barRange,
+			this.barRange,
 			-this.canvas.width / 2,
 			this.canvas.width / 2
 		);

@@ -7,7 +7,7 @@ const getMic = () => {
 			audio: {
 				echoCancellation: true,
 				autoGainControl: false,
-				noiseSuppression: true, //noise suppression may reduce the accuracy of tuner
+				noiseSuppression: true,
 				latency: 0,
 			},
 		})
