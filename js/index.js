@@ -1,7 +1,7 @@
 //canvas
 const tunerCanvas = document.getElementById("tuner-canvas");
 const visualizerCanvas = document.getElementById("visualizer-canvas");
-// const vContext = visualizerCanvas.getContext("2d");
+
 tunerCanvas.width = 570;
 tunerCanvas.height = 480;
 
@@ -20,19 +20,16 @@ const tunerNode = new AnalyserNode(audioContext, { fftSize: 2048 }); //web audio
 const visualizerNode = new AnalyserNode(audioContext, { fftSize: 64 }); //analyzer node for visualizer
 
 //to store discrete frequency values for pitch detection
-const tunerBufferLength = tunerNode.frequencyBinCount; //may not need this REFACTOR NEEDED
+const tunerBufferLength = tunerNode.frequencyBinCount; //REFACTOR NEEDED
 const tunerDataArray = new Float32Array(tunerBufferLength);
 
 //to store frequency values for visualizer
 const visualizerBufferLength = visualizerNode.frequencyBinCount;
 const visualizerDataArray = new Uint8Array(visualizerBufferLength);
 
-//elements from DOM
+//DOM elements
 const micButton = document.querySelector(".mic-button");
 const noteButtons = document.querySelectorAll(".note-button");
-
-//mic state
-let isUsingMic = false;
 
 //colors
 const CYAN = "#5CC1A9";
@@ -44,16 +41,20 @@ const RED = "#C15C5C";
 const LOW_FREQ_THRES = 200;
 const HIGH_FREQ_THRES = 500;
 
-//current tuner mode
+//app state
+let isUsingMic = false;
 let currentTunerMode = "manual";
-
-//tuner type
 let currentTunerType = "meter";
+let currentTuningIndex = 0;
+let currentNoteIndex = 0;
+let notes = tunings[currentTuningIndex].notes; //default current note to first note in array
 
+//tuner an visualizer init
 const barTuner = new BarTuner(tunerCanvas);
 const meterTuner = new MeterTuner(tunerCanvas);
 const visualizer = new Visualizer(visualizerCanvas, visualizerBufferLength);
 
+//main loop
 const start = () => {
 	if (isUsingMic) {
 		//get frequnecy data for tuner;
@@ -97,7 +98,7 @@ const start = () => {
 	}
 };
 
-const initializeTuner = () => {
+const renderTuner = () => {
 	if (currentTunerType === "bar") {
 		barTuner.clear();
 		barTuner.drawSkeleton(GREY);
@@ -108,13 +109,22 @@ const initializeTuner = () => {
 	}
 };
 
-//add eventListeners to radio buttons
+const populateNoteButtons = () => {
+	for (let i = 0; i < noteButtons.length; i++) {
+		noteButtons[i].innerText = notes[i].note;
+	}
+	console.log(notes);
+};
 
+//insert default note buttons
+populateNoteButtons();
+
+//add eventListeners to radio buttons
 //mode
-const modes = document.querySelectorAll(".tuner-mode");
-for (let i = 0; i < modes.length; i++) {
-	modes[i].addEventListener("click", () => {
-		if (modes[i].htmlFor === "manual") {
+const modeRadioBtns = document.querySelectorAll(".tuner-mode");
+for (let i = 0; i < modeRadioBtns.length; i++) {
+	modeRadioBtns[i].addEventListener("click", () => {
+		if (modeRadioBtns[i].htmlFor === "manual") {
 			currentTunerMode = "manual";
 			//when switching back to manual mode set current note to first note
 			currentNoteIndex = 0;
@@ -127,20 +137,37 @@ for (let i = 0; i < modes.length; i++) {
 			}
 		}
 		//rerender after mode change
-		initializeTuner();
+		renderTuner();
 	});
 }
+
 //tuner type
-const tunerTypes = document.querySelectorAll(".tuner-type");
-for (let i = 0; i < tunerTypes.length; i++) {
-	tunerTypes[i].addEventListener("click", () => {
-		if (tunerTypes[i].htmlFor === "bar") {
+const tunerTypeRadioBtns = document.querySelectorAll(".tuner-type");
+for (let i = 0; i < tunerTypeRadioBtns.length; i++) {
+	tunerTypeRadioBtns[i].addEventListener("click", () => {
+		if (tunerTypeRadioBtns[i].htmlFor === "bar") {
 			currentTunerType = "bar";
 		} else {
 			currentTunerType = "meter";
 		}
 		//rerener after tuner type change
-		initializeTuner();
+		renderTuner();
+	});
+}
+
+//tunings
+const tuningRadioBtns = document.querySelectorAll(".tuning");
+for (let i = 0; i < tuningRadioBtns.length; i++) {
+	tuningRadioBtns[i].addEventListener("click", () => {
+		tunings.forEach((tuning, index) => {
+			if (tuningRadioBtns[i].htmlFor === tuning.name) {
+				currentTuningIndex = index;
+				notes = tunings[currentTuningIndex].notes;
+			}
+		});
+		//rerener buttons and canvas after tuning changes
+		populateNoteButtons();
+		renderTuner();
 	});
 }
 
@@ -156,9 +183,10 @@ if ((currentTunerMode = "manual")) {
 					noteButtons[j].classList.remove("active");
 				}
 			}
-			//clicking note buttons will chnage mode to manual
+			//clicking note buttons will change mode to manual
 			currentTunerMode = "manual";
 			document.getElementById("manual").checked = true;
+			renderTuner();
 		});
 	}
 }
@@ -166,7 +194,7 @@ if ((currentTunerMode = "manual")) {
 //draw on canvas only after font is loaded
 fontRoboto
 	.load()
-	.then(() => initializeTuner())
+	.then(() => renderTuner())
 	.catch((err) => console.log(err));
 
 //add event Listener to mic

@@ -13,22 +13,22 @@ const detectPitch = (buffer) => {
 	if (rms < 0.01) return -1;
 
 	//clip signal
-	let r1 = 0,
-		r2 = SIZE - 1,
-		thres = 0.2;
-	for (let i = 0; i < SIZE / 2; i++)
-		if (Math.abs(buffer[i]) < thres) {
-			r1 = i;
-			break;
-		}
-	for (let i = 1; i < SIZE / 2; i++)
-		if (Math.abs(buffer[SIZE - i]) < thres) {
-			r2 = SIZE - i;
-			break;
-		}
+	// let r1 = 0,
+	// 	r2 = SIZE - 1,
+	// 	thres = 0.2;
+	// for (let i = 0; i < SIZE / 2; i++)
+	// 	if (Math.abs(buffer[i]) < thres) {
+	// 		r1 = i;
+	// 		break;
+	// 	}
+	// for (let i = 1; i < SIZE / 2; i++)
+	// 	if (Math.abs(buffer[SIZE - i]) < thres) {
+	// 		r2 = SIZE - i;
+	// 		break;
+	// 	}
 
-	buffer = buffer.slice(r1, r2);
-	SIZE = buffer.length;
+	// buffer = buffer.slice(r1, r2);
+	// SIZE = buffer.length;
 
 	let c = new Array(SIZE).fill(0);
 	for (let i = 0; i < SIZE; i++)

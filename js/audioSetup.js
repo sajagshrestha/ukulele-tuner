@@ -39,7 +39,7 @@ const toggleMic = () => {
 		//update mic style
 		micButton.classList.remove("active");
 		visualizer.clear();
-		initializeTuner();
+		renderTuner();
 
 		//stop getting input from mic
 		micStream.getAudioTracks().forEach((track) => {

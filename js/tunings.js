@@ -21,10 +21,25 @@ const tunings = [
 			},
 		],
 	},
+	{
+		name: "ADF#B",
+		notes: [
+			{
+				note: "A",
+				freq: 440,
+			},
+			{
+				note: "D",
+				freq: 293.66,
+			},
+			{
+				note: "F#",
+				freq: 369.99,
+			},
+			{
+				note: "B",
+				freq: 493.88,
+			},
+		],
+	},
 ];
-
-let currentTuning = 0;
-let currentNoteIndex = 0;
-
-//default current note to first note
-let notes = tunings[currentTuning].notes;
