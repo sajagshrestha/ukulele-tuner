@@ -43,9 +43,10 @@ const HIGH_FREQ_THRES = 500;
 
 //app state
 let isUsingMic = false;
-let currentTunerMode = "manual";
-let currentTunerType = "meter";
-let currentTuningIndex = 0;
+let currentTunerMode = localStorage.getItem("currentTunerMode") || "auto";
+let currentTunerType = localStorage.getItem("currentTunerType") || "bar";
+let currentTuningIndex =
+	parseInt(localStorage.getItem("currentTuningIndex")) || 0;
 let currentNoteIndex = 0;
 let notes = tunings[currentTuningIndex].notes; //default current note to first note in array
 
@@ -113,7 +114,6 @@ const populateNoteButtons = () => {
 	for (let i = 0; i < noteButtons.length; i++) {
 		noteButtons[i].innerText = notes[i].note;
 	}
-	console.log(notes);
 };
 
 //insert default note buttons
@@ -136,6 +136,7 @@ for (let i = 0; i < modeRadioBtns.length; i++) {
 				noteButtons[i].classList.remove("active");
 			}
 		}
+		localStorage.setItem("currentTunerMode", currentTunerMode);
 		//rerender after mode change
 		renderTuner();
 	});
@@ -150,7 +151,8 @@ for (let i = 0; i < tunerTypeRadioBtns.length; i++) {
 		} else {
 			currentTunerType = "meter";
 		}
-		//rerener after tuner type change
+		localStorage.setItem("currentTunerType", currentTunerType);
+		//rerender after tuner type change
 		renderTuner();
 	});
 }
@@ -162,17 +164,18 @@ for (let i = 0; i < tuningRadioBtns.length; i++) {
 		tunings.forEach((tuning, index) => {
 			if (tuningRadioBtns[i].htmlFor === tuning.name) {
 				currentTuningIndex = index;
+				localStorage.setItem("currentTuningIndex", currentTuningIndex);
 				notes = tunings[currentTuningIndex].notes;
 			}
 		});
-		//rerener buttons and canvas after tuning changes
+		//rerender buttons and canvas after tuning changes
 		populateNoteButtons();
 		renderTuner();
 	});
 }
 
 //add eventListeners for note buttons
-if ((currentTunerMode = "manual")) {
+if (currentTunerMode === "manual") {
 	for (let i = 0; i < noteButtons.length; i++) {
 		noteButtons[i].addEventListener("click", () => {
 			currentNoteIndex = i;
@@ -199,3 +202,8 @@ fontRoboto
 
 //add event Listener to mic
 micButton.addEventListener("click", toggleMic);
+
+//check active radio buttons
+document.getElementById(`${currentTunerMode}`).checked = true;
+document.getElementById(`${currentTunerType}`).checked = true;
+document.getElementById(`${tunings[currentTuningIndex].name}`).checked = true;
