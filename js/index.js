@@ -43,7 +43,7 @@ const HIGH_FREQ_THRES = 500;
 
 //app state
 let isUsingMic = false;
-let currentTunerMode = localStorage.getItem("currentTunerMode") || "auto";
+let currentTunerMode = localStorage.getItem("currentTunerMode") || "manual";
 let currentTunerType = localStorage.getItem("currentTunerType") || "bar";
 let currentTuningIndex =
 	parseInt(localStorage.getItem("currentTuningIndex")) || 0;
