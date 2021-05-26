@@ -105,6 +105,7 @@ const renderTuner = () => {
 		barTuner.drawSkeleton(GREY);
 	} else {
 		meterTuner.clear();
+		meterTuner.resetAngle();
 		meterTuner.drawTuner(GREY);
 		meterTuner.drawNotes(GREY);
 	}
@@ -175,23 +176,21 @@ for (let i = 0; i < tuningRadioBtns.length; i++) {
 }
 
 //add eventListeners for note buttons
-if (currentTunerMode === "manual") {
-	for (let i = 0; i < noteButtons.length; i++) {
-		noteButtons[i].addEventListener("click", () => {
-			currentNoteIndex = i;
-			for (let j = 0; j < noteButtons.length; j++) {
-				if (j === currentNoteIndex) {
-					noteButtons[j].classList.add("active");
-				} else {
-					noteButtons[j].classList.remove("active");
-				}
+for (let i = 0; i < noteButtons.length; i++) {
+	noteButtons[i].addEventListener("click", () => {
+		currentNoteIndex = i;
+		for (let j = 0; j < noteButtons.length; j++) {
+			if (j === currentNoteIndex) {
+				noteButtons[j].classList.add("active");
+			} else {
+				noteButtons[j].classList.remove("active");
 			}
-			//clicking note buttons will change mode to manual
-			currentTunerMode = "manual";
-			document.getElementById("manual").checked = true;
-			renderTuner();
-		});
-	}
+		}
+		//clicking note buttons will change mode to manual
+		currentTunerMode = "manual";
+		document.getElementById("manual").checked = true;
+		renderTuner();
+	});
 }
 
 //draw on canvas only after font is loaded

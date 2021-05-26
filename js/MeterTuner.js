@@ -102,4 +102,7 @@ class MeterTuner {
 	clear() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
+	resetAngle() {
+		this.tunerAngle = 0;
+	}
 }
