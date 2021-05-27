@@ -16,7 +16,7 @@ const fontRoboto = new FontFace(
 
 //audio context
 const audioContext = new AudioContext();
-const tunerNode = new AnalyserNode(audioContext, { fftSize: 2048 }); //web audio api's anaylzer node that connects to mic input
+const tunerNode = new AnalyserNode(audioContext, { fftSize: 1024 }); //web audio api's anaylzer node that connects to mic input
 const visualizerNode = new AnalyserNode(audioContext, { fftSize: 64 }); //analyzer node for visualizer
 
 //to store discrete frequency values for pitch detection
@@ -202,7 +202,10 @@ fontRoboto
 //add event Listener to mic
 micButton.addEventListener("click", toggleMic);
 
-//check active radio buttons
+//check active radio buttons fir first render
 document.getElementById(`${currentTunerMode}`).checked = true;
 document.getElementById(`${currentTunerType}`).checked = true;
 document.getElementById(`${tunings[currentTuningIndex].name}`).checked = true;
+
+//set first note button to active in manual mode for first render
+if (currentTunerMode === "manual") noteButtons[0].classList.add("active");

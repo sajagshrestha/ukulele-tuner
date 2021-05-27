@@ -1,58 +1,53 @@
 const detectPitch = (buffer) => {
-	const sampleRate = 44100;
-	let SIZE = buffer.length;
+	const SAMPLE_RATE = 44100;
+	let size = buffer.length;
 	let rms = 0; //root mean square
 
-	for (let i = 0; i < SIZE; i++) {
+	for (let i = 0; i < size; i++) {
 		let val = buffer[i];
 		rms += val * val;
 	}
-	rms = Math.sqrt(rms / SIZE);
+	rms = Math.sqrt(rms / size);
 
 	//rms less that 0.01 means signal is not enough
 	if (rms < 0.01) return -1;
 
-	//clip signal
-	// let r1 = 0,
-	// 	r2 = SIZE - 1,
-	// 	thres = 0.2;
-	// for (let i = 0; i < SIZE / 2; i++)
-	// 	if (Math.abs(buffer[i]) < thres) {
-	// 		r1 = i;
-	// 		break;
-	// 	}
-	// for (let i = 1; i < SIZE / 2; i++)
-	// 	if (Math.abs(buffer[SIZE - i]) < thres) {
-	// 		r2 = SIZE - i;
-	// 		break;
-	// 	}
+	//auto correlation
+	let correlatedValues = new Array(size).fill(0); // fill array with 0 to store sum
 
-	// buffer = buffer.slice(r1, r2);
-	// SIZE = buffer.length;
-
-	let c = new Array(SIZE).fill(0);
-	for (let i = 0; i < SIZE; i++)
-		for (let j = 0; j < SIZE - i; j++)
-			c[i] = c[i] + buffer[j] * buffer[j + i];
-
-	let d = 0;
-	while (c[d] > c[d + 1]) d++;
-	let maxval = -1,
-		maxpos = -1;
-	for (let i = d; i < SIZE; i++) {
-		if (c[i] > maxval) {
-			maxval = c[i];
-			maxpos = i;
+	for (let i = 0; i < size; i++) {
+		for (let j = 0; j < size - i; j++) {
+			correlatedValues[i] += buffer[j] * buffer[j + i];
 		}
 	}
-	let T0 = maxpos;
+	//max value is only calulated after the first dip because the first max maybe false maximum
+	let firstDipPos = 0;
+	while (correlatedValues[firstDipPos] > correlatedValues[firstDipPos + 1]) {
+		firstDipPos++;
+	}
 
-	let x1 = c[T0 - 1],
-		x2 = c[T0],
-		x3 = c[T0 + 1];
-	a = (x1 + x3 - 2 * x2) / 2;
-	b = (x3 - x1) / 2;
-	if (a) T0 = T0 - b / (2 * a);
+	let maxValue = -1,
+		maxPosition = -1;
+	for (let i = firstDipPos; i < size; i++) {
+		if (correlatedValues[i] > maxValue) {
+			maxValue = correlatedValues[i];
+			maxPosition = i;
+		}
+	}
 
-	return sampleRate / T0;
+	let T0 = maxPosition;
+
+	//parabolic interpolation is used for precision
+	const x1 = correlatedValues[T0 - 1];
+	const x2 = correlatedValues[T0];
+	const x3 = correlatedValues[T0 + 1];
+	const a = (x1 + x3 - 2 * x2) / 2;
+	const b = (x3 - x1) / 2;
+
+	//find error
+	const error = b / (2 * a);
+
+	T0 = T0 - error;
+
+	return SAMPLE_RATE / T0;
 };
