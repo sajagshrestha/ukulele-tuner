@@ -196,7 +196,10 @@ for (let i = 0; i < noteButtons.length; i++) {
 //draw on canvas only after font is loaded
 fontRoboto
 	.load()
-	.then(() => renderTuner())
+	.then((font) => {
+		document.fonts.add(font);
+		renderTuner();
+	})
 	.catch((err) => console.log(err));
 
 //add event Listener to mic
