@@ -58,7 +58,6 @@ class BarTuner {
 		//draw text
 		this.ctx.font = "bold 24px Roboto";
 		this.ctx.fillStyle = color;
-
 		this.ctx.textAlign = "center";
 		this.ctx.fillText("\u266d", -250, 20);
 		this.ctx.fillText("\u266f", 250, 20);
@@ -73,8 +72,6 @@ class BarTuner {
 	}
 	update(diff) {
 		this.clear();
-		// this.ctx.fillText(diff.toFixed(2), 20, 120);
-
 		if (diff > -this.threshold && diff < this.threshold) {
 			//in tune
 			this.tunerColor = CYAN;

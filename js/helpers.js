@@ -9,7 +9,3 @@ const mapToRange = (value, inMin, inMAx, outMin, outMax) => {
 const getHSL = (h, s, l) => {
 	return `hsl(${h},${s}%,${l}%)`;
 };
-
-// function generateRandomIntegerBetween(minValue, maxValue) {
-// 	return Math.floor(Math.random() * (maxValue - minValue) + minValue);
-// }

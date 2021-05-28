@@ -13,7 +13,6 @@ class MeterTuner {
 	}
 	drawTuner(color) {
 		this.ctx.translate(this.x, this.y);
-
 		this.ctx.shadowBlur = this.shadowBlur;
 		this.ctx.shadowColor = color;
 		this.ctx.strokeStyle = color;
@@ -52,9 +51,7 @@ class MeterTuner {
 			this.ctx.font = "bold 16px Roboto";
 			this.ctx.textAlign = "center";
 			this.ctx.fillText(value, 0, -this.radius - 15);
-
 			this.ctx.rotate(-angle);
-
 			this.ctx.stroke();
 		}
 		this.ctx.translate(-this.x, -this.y);

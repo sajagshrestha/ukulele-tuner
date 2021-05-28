@@ -20,7 +20,7 @@ const tunerNode = new AnalyserNode(audioContext, { fftSize: 1024 }); //web audio
 const visualizerNode = new AnalyserNode(audioContext, { fftSize: 64 }); //analyzer node for visualizer
 
 //to store discrete frequency values for pitch detection
-const tunerBufferLength = tunerNode.frequencyBinCount; //REFACTOR NEEDED
+const tunerBufferLength = tunerNode.frequencyBinCount;
 const tunerDataArray = new Float32Array(tunerBufferLength);
 
 //to store frequency values for visualizer
@@ -80,7 +80,6 @@ const start = () => {
 					currentNoteIndex = index;
 				}
 			});
-
 			diff = tempDiff;
 		}
 
@@ -116,9 +115,6 @@ const populateNoteButtons = () => {
 		noteButtons[i].innerText = notes[i].note;
 	}
 };
-
-//insert default note buttons
-populateNoteButtons();
 
 //add eventListeners to radio buttons
 //mode
@@ -193,15 +189,6 @@ for (let i = 0; i < noteButtons.length; i++) {
 	});
 }
 
-//draw on canvas only after font is loaded
-fontRoboto
-	.load()
-	.then((font) => {
-		document.fonts.add(font);
-		renderTuner();
-	})
-	.catch((err) => console.log(err));
-
 //add event Listener to mic
 micButton.addEventListener("click", toggleMic);
 
@@ -212,3 +199,15 @@ document.getElementById(`${tunings[currentTuningIndex].name}`).checked = true;
 
 //set first note button to active in manual mode for first render
 if (currentTunerMode === "manual") noteButtons[0].classList.add("active");
+
+//insert default note buttons
+populateNoteButtons();
+
+//draw on canvas only after font is loaded
+fontRoboto
+	.load()
+	.then((font) => {
+		document.fonts.add(font);
+		renderTuner();
+	})
+	.catch((err) => console.log(err));
